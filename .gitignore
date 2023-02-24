@@ -1,0 +1,12 @@
+/.vscode/
+/coverage/
+/logs/*
+/tests/logs/*
+/tests/work/*
+/vendor/
+/work/*
+.env
+.phpunit.result.cache
+coverage.xml
+composer.phar
+composer.lock
