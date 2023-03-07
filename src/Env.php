@@ -13,6 +13,9 @@ class Env extends SlimEnv
     public const LTI_CLIENT_ID      = 'LTI_CLIENT_ID';
     public const LTI_DEPLOYMENT_ID  = 'LTI_DEPLOYMENT_ID';
     public const LTI_LAUNCH_URL     = 'LTI_LAUNCH_URL';
+    public const LTI_LAUNCH_PREFIX  = 'LTI_LAUNCH_PREFIX';
+    public const LTI_STATE_PREFIX   = 'LTI_STATE_PREFIX';
+    public const LTI_NONCE_PREFIX   = 'LTI_NONCE_PREFIX';
     public const JWKS_CACHE_NAME    = 'JWKS_CACHE_NAME';
     public const JWKS_EXPIRES_AFTER = 'JWKS_EXPIRES_AFTER';
     public const JWKS_REGEN_KEY_AT  = 'JWKS_REGEN_KEY_AT';
@@ -33,6 +36,9 @@ class Env extends SlimEnv
         static::setString(static::LTI_CLIENT_ID);
         static::setString(static::LTI_DEPLOYMENT_ID);
         static::setString(static::LTI_LAUNCH_URL, "{$baseURI}/lti/launch");
+        static::setString(static::LTI_LAUNCH_PREFIX, "launch-");
+        static::setString(static::LTI_STATE_PREFIX, "state-");
+        static::setString(static::LTI_NONCE_PREFIX, "nonce-");
         static::setString(static::JWKS_CACHE_NAME, "lti-1.3-jwks");
         static::setInt(static::JWKS_EXPIRES_AFTER, 3600);
         static::setInt(static::JWKS_REGEN_KEY_AT, 360);
