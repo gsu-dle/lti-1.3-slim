@@ -62,13 +62,16 @@ return (function () {
         FirebaseKeySet::class => \DI\autowire()
             ->constructorParameter('jwksUri', \DI\get('lmsKeySetURL'))
             ->constructorParameter('expiresAfter', 360)
-            ->constructorParameter('rateLimit', true),
+            ->constructorParameter('rateLimit', true)
+            ->constructorParameter('defaultAlg', 'RS256'),
         JWKS::class => \DI\factory([JWKSFactory::class, 'createJWKS']),
         JWKSFactory::class => \DI\autowire(DefaultJWKSFactory::class)
             ->constructorParameter('jwksExpiresAfter', \DI\get('jwksExpiresAfter'))
             ->constructorParameter('jwksRegenKeyAt', \DI\get('jwksRegenKeyAt'))
             ->constructorParameter('jwksCacheName', \DI\get('jwksCacheName')),
-        JWTDecoder::class => \DI\get(DefaultJWTDecoder::class),
+        JWTDecoder::class => \DI\autowire(DefaultJWTDecoder::class)
+            ->constructorParameter('keyOrKeyArray', \DI\get(FirebaseKeySet::class))
+            ->constructorParameter('defaultAlg', 'RS256'),
         JWTEncoder::class => \DI\factory(function (JWKS $jwks) {
             return new DefaultJWTEncoder($jwks->getAvailableKeyPair());
         }),
