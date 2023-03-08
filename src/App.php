@@ -52,6 +52,6 @@ class App extends SlimApp
         $routes->get('/lti/jwks', [JWKSController::class, 'jwks']);
         $routes->post('/lti/login', [LoginController::class, 'login']);
         $routes->post('/lti/launch', [LaunchController::class, 'launch']);
-        $routes->get('/lti/message', [LaunchController::class, 'getMessage']);
+        $routes->get('/lti/launch', [LaunchController::class, 'getMessage']);
     }
 }
