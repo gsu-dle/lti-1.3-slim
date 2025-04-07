@@ -12,6 +12,7 @@ use GAState\Web\LTI\Middleware\LaunchMessageMiddleware as LaunchMessageMiddlewar
 use GAState\Web\Slim\App                               as SlimApp;
 use GAState\Web\Slim\Middleware\ErrorMiddleware        as ErrorMiddleware;
 use GAState\Web\Slim\Middleware\SessionMiddleware      as SessionMiddleware;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Server\MiddlewareInterface                as Middleware;
 use Slim\Interfaces\RouteCollectorProxyInterface       as RouteContainer;
 use Slim\Middleware\BodyParsingMiddleware              as SlimBodyParsingMiddleware;
@@ -21,7 +22,7 @@ use Slim\Middleware\RoutingMiddleware                  as SlimRoutingMiddleware;
 class App extends SlimApp
 {
     #[Inject]
-    private ?LaunchMessageMiddleware $launchMessageMiddleware = null;
+    protected ?LaunchMessageMiddleware $launchMessageMiddleware = null;
 
 
     /**
@@ -43,15 +44,15 @@ class App extends SlimApp
 
 
     /**
-     * @param RouteContainer $routes
+     * @param RouteContainer<ContainerInterface> $routes
      *
      * @return void
      */
     protected function loadRoutes(RouteContainer $routes): void
     {
-        $routes->get('/lti/jwks', [JWKSController::class, 'jwks']);
-        $routes->post('/lti/login', [LoginController::class, 'login']);
-        $routes->post('/lti/launch', [LaunchController::class, 'launch']);
-        $routes->get('/lti/launch', [LaunchController::class, 'getMessage']);
+        $routes->get('/lti/jwks', join([JWKSController::class, 'jwks']));
+        $routes->post('/lti/login', join([LoginController::class, 'login']));
+        $routes->post('/lti/launch', join([LaunchController::class, 'launch']));
+        $routes->get('/lti/launch', join([LaunchController::class, 'getMessage']));
     }
 }
